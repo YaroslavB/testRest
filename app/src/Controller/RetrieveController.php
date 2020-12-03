@@ -1,24 +1,22 @@
 <?php
 
-
     namespace App\Controller;
-
 
     use Psr\Http\Message\ResponseInterface;
     use Psr\Http\Message\ServerRequestInterface;
     use Zend\Diactoros\Response\JsonResponse;
 
-    class RetrieveController
+class RetrieveController
+{
+
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-
-        public  function  __invoke(ServerRequestInterface $request):ResponseInterface
-        {
-            $req = $request->getQueryParams();
+        $req = $request->getQueryParams();
 
 
-            $response = !empty($req) ? new JsonResponse($req, 200) : new JsonResponse('Not Fond', 404);
+        $response = !empty($req) ? new JsonResponse($req, 200) :
+            new JsonResponse('Not Fond', 404);
 
-            return  $response;
-        }
-
+        return  $response;
     }
+}

@@ -1,14 +1,13 @@
 <?php
+
     declare(strict_types=1);
 
     namespace App;
 
-
-    class HelloWorld
+class HelloWorld
+{
+    public function anno(): string
     {
-        public function anno(): void
-        {
-            echo 'Hello ';
-        }
-
+        return 'Hello';
     }
+}

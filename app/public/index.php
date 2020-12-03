@@ -10,15 +10,13 @@
 // map a route
     $router->map('GET', '/', App\Controller\HomeController::class);
     $router->map('GET', '/api', App\Controller\HomeController::class);
-   /// $router->map('GET', '/api/retrieve', App\Controller\RetrieveController::class);
+    $router->map('GET', '/lun', App\Controller\LunController::class);
+    /// $router->map('GET', '/api/retrieve', App\Controller\RetrieveController::class);
     $router->map('GET', '/api/retrieve/{id:\d+}', App\Controller\RetrieveController::class);
     $response = $router->dispatch($request);
     (new Zend\HttpHandlerRunner\Emitter\SapiEmitter)->emit($response);
 
 
-
- //   $key = base64_encode(openssl_random_pseudo_bytes(64));
-    $secret = 'fXERPLjrr3arNo2DDhJrIxL1JUq/Ha2r6n6WgXSzZTdX+uCWKY7zjNq4X+/4kJtj0mAtQwK7LQ8dcraOxNLCCg==';
 
 
 
