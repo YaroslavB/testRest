@@ -17,7 +17,7 @@ before_script:
 
 
 script:
-  - docker-compose exec php bash php ./vendor/bin/phpcs
+
 
 
 
