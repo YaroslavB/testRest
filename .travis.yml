@@ -1,4 +1,4 @@
-sudo: required
+language: php
 
 services:
   - docker
@@ -12,11 +12,11 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-before_script:
-  - docker-compose up -d --build
+
+
 
 script:
-
+  - docker-compose up -d --build
 
 
 after_script:
