@@ -2,6 +2,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/YaroslavB/testRest)
 ![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/YaroslavB/testRest)
 ![Scrutinizer build (GitHub/Bitbucket)](https://img.shields.io/scrutinizer/build/g/YaroslavB/testRest)
+[![Build Status](https://travis-ci.com/YaroslavB/testRest.svg?branch=main)](https://travis-ci.com/YaroslavB/testRest)
 
 
 # JWT Token -Simple  
