@@ -4,10 +4,10 @@
 
     namespace App;
 
-class HelloWorld
-{
-    public function anno(): string
+    class HelloWorld
     {
-        return 'Hello';
+        public function anno(): string
+        {
+            return 'Hello';
+        }
     }
-}

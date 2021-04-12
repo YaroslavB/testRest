@@ -7,7 +7,7 @@
     );
     $router = new League\Route\Router;
 
-// map a route
+    // map a route
     $router->map('GET', '/', App\Controller\HomeController::class);
     $router->map('GET', '/api', App\Controller\HomeController::class);
     $router->map('GET', '/lun', App\Controller\LunController::class);

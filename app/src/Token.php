@@ -2,11 +2,8 @@
 
     namespace App;
 
-class Token
-{
+    class Token
+    {
 
 
-
-
-
-}
+    }
