@@ -4,11 +4,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 
+use App\Access\ObjectAccess;
 use App\Database\Connection;
 use App\Entity\User;
-use http\Exception\RuntimeException;
-use ReflectionException;
-use ReflectionObject;
 
 class UserRepository
 {
@@ -35,22 +33,15 @@ class UserRepository
                              password=:password,
                              status =:status"
         );
-        $reflection = new ReflectionObject($user);
-        try {
-            $prop = $reflection->getProperty('password');
-            $prop->setAccessible(true);
-            $password = $prop->getValue();
-
-        } catch (ReflectionException $e) {
-            throw  new RuntimeException('Password empty');
-        }
+        $reflection = new ObjectAccess($user);
         $stmt->execute(
             [
-                'login' => $user->getLogin(),
-                'password',
-
-
+                'login' => $reflection->getPropertyValue('login'),
+                'password' => $reflection->getPropertyValue('password'),
+                'status' => $reflection->getPropertyValue('status'),
             ]
         );
+
+        $reflection->setPropertyValue('id', (int)$this->connection->lastInsertId());
     }
 }
