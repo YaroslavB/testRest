@@ -1,11 +1,12 @@
 {
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Engine\\": "engine/"
         }
     },
     "autoload-dev": {
-        "psr-4": { "APP\\Test\\": "src/test/" }
+        "psr-4": { "APP\\Test\\": "test/" }
     },
     "license": "mit",
     "minimum-stability": "dev",
