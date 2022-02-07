@@ -3,7 +3,7 @@ services:
   nginx:
     build:
       context: ets/nginx
-    container_name: nginx
+    container_name: nginx_rest
     volumes:
     - ./ets/nginx/hosts:/etc/nginx/conf.d
     - ./logs:/var/log/nginx
@@ -20,12 +20,12 @@ services:
       - db
     volumes:
     - ./app/:/var/www
-    container_name: php
+    container_name: php_rest
     restart: unless-stopped
     tty: true
   db:
     image: mysql:5.7
-    container_name: mysql
+    container_name: mysql_rest
     ports:
     - 3306:3306
     volumes:
