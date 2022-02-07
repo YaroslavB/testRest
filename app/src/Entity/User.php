@@ -12,9 +12,14 @@ class User
     /**
      * @var  int/null
      */
-    private int $id;
-
+    private $id;
+    /**
+     * @var string
+     */
     private string $login;
+    /**
+     * @var string
+     */
     private string $password;
 
     /**
@@ -38,9 +43,9 @@ class User
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
