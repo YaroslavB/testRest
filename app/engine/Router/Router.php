@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Engine\Router;
 
 
+use LogicException;
+
 class Router
 {
     private $routes = [];
@@ -29,12 +31,11 @@ class Router
      */
     public function match(string $url):array
     {
-           foreach ($this->routes as $route)
-           {
-               if($route['route'] == $url) {
-                   return  $route;
-               }
-           }
-           throw  new \LogicException('Route not Found- '.$url);
+        foreach ($this->routes as $route) {
+            if($route['route'] == $url) {
+                return  $route;
+            }
+        }
+        throw  new LogicException('Route not Found- ' . $url);
     }
 }
