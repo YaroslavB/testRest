@@ -17,14 +17,15 @@ $router = new Router();
 $container = new Container();
 
 $router->add('/signup', AuthController::class, 'signup');
+
 // Add to container
 $container->set(AuthService::class, function (Container $container) {
     return new AuthService();
 });
-
 $container->set(AuthController::class, function (Container $container) {
     return new AuthController($container->get(AuthService::class));
 });
+
 
 $match = $router->match($_SERVER['REQUEST_URI']);
 
