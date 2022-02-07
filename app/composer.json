@@ -13,7 +13,9 @@
     "name": "root/www",
     "require": {
         "php": ">=7.3",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-http": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "9.5.x-dev",
