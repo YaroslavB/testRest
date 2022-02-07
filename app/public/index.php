@@ -6,6 +6,7 @@ use App\Controller\AuthController;
 use App\Database\Connection;
 use App\Repository\UserRepository;
 use App\Service\Auth\AuthService;
+use App\Storage\SessionStorage;
 use Engine\Container\Container;
 use Engine\Router\Router;
 
@@ -21,6 +22,13 @@ $container = new Container();
 $router->add('/signup', AuthController::class, 'signup');
 
 // Add to container
+
+$container->set(
+    SessionStorage::class,
+    function () {
+        return new SessionStorage();
+    }
+);
 
 $container->set(
     Connection::class,
@@ -43,7 +51,10 @@ $container->set(
 $container->set(
     AuthService::class,
     function (Container $container) {
-        return new AuthService($container->get(UserRepository::class));
+        return new AuthService(
+            $container->get(UserRepository::class),
+            $container->get(SessionStorage::class)
+        );
     }
 );
 $container->set(
