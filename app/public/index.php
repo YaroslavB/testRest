@@ -1,10 +1,6 @@
 <?php
 declare(strict_types=1);
 
-if (!ini_set('display_errors', '1'))
-    throw new RuntimeException('Unable to set display_errors.');
-
-error_reporting(E_ALL);
 
 use App\Controller\AuthController;
 use App\Service\Auth\AuthService;
