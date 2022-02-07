@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3'
 services:
   nginx:
     build:
@@ -12,6 +12,7 @@ services:
     - "80:80"
     links:
       - php
+
   php:
     build:
       context: ets/php
@@ -23,6 +24,7 @@ services:
     container_name: php_rest
     restart: unless-stopped
     tty: true
+
   db:
     image: mysql:5.7
     container_name: mysql_rest
