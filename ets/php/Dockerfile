@@ -1,32 +1,46 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm-alpine
 
-ARG DOCKER_HOST_IP=172.17.0.1
-ARG IDE_KEY=PHPSTORM
-ENV XDEBUG_CONFIG="idekey=${IDE_KEY} remote_enable=1 remote_host=${DOCKER_HOST_IP}"
-RUN apt-get update && apt-get install -y \
-        curl \
-        wget \
-        git \
-        unzip \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        libonig-dev \
-        libzip-dev \
-        libmcrypt-dev \
-        && pecl install mcrypt-1.0.3 \
-	    && docker-php-ext-enable mcrypt \
-	    && pecl install xdebug-2.7.1 \
-        && docker-php-ext-enable xdebug \
-        && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
-        && docker-php-ext-install -j$(nproc) gd
+# 3 Install Additional dependencies
+RUN apk update && apk add --no-cache \
+    build-base shadow vim curl \
+    php7 \
+    php7-fpm \
+    php7-common \
+    php7-pdo \
+    php7-pdo_mysql \
+    php7-mysqli \
+    php7-mcrypt \
+    php7-mbstring \
+    php7-xml \
+    php7-openssl \
+    php7-json \
+    php7-phar \
+    php7-zip \
+    php7-gd \
+    php7-dom \
+    php7-session \
+    php7-zlib
 
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+RUN docker-php-ext-enable pdo_mysql
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Download and install composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php --install-dir=/usr/bin --filename=composer && \
+    php -r "unlink('composer-setup.php');"
 
-ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
+ARG user=admin
+ARG group=admin
+ARG uid=1000
+ARG gid=1000
 
+RUN groupadd -g ${gid} ${group}
+RUN useradd -u ${uid} -ms /bin/bash -g ${group} ${user}
+
+COPY --chown=${group}:${user} . /var/projects
+
+# Change current user to www
+USER ${user}
+
+# Set working directory
 WORKDIR /var/www
-
-
-CMD ["php-fpm"]
