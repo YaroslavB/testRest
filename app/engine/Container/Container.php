@@ -7,7 +7,7 @@ use LogicException;
 
 class Container
 {
-    private $definitions = [];
+    private array $definitions = [];
 
     public function set($key, $definition)
     {
