@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Access;
 
+use ReflectionException;
 use ReflectionObject;
 
 class ObjectAccess
@@ -16,7 +17,7 @@ class ObjectAccess
 
     /**
      * ObjectAccess constructor.
-     * @param $obj
+     * @param object $obj
      */
     public function __construct($obj)
     {
@@ -25,6 +26,11 @@ class ObjectAccess
 
     }
 
+    /**
+     * @param string $propertyName
+     * @return mixed
+     * @throws ReflectionException
+     */
     public function getPropertyValue(string $propertyName)
     {
         $property = $this->reflectionObject->getProperty($propertyName);
@@ -33,7 +39,12 @@ class ObjectAccess
         return $property->getValue($this->obj);
     }
 
-    public function setPropertyValue(string $propertyName, $value)
+    /**
+     * @param string $propertyName
+     * @param $value
+     * @throws ReflectionException
+     */
+    public function setPropertyValue(string $propertyName, $value): void
     {
         $property = $this->reflectionObject->getProperty($propertyName);
         $property->setAccessible(true);

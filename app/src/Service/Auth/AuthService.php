@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Storage\SessionStorage;
 use DomainException;
+use ReflectionException;
 
 class AuthService
 {
@@ -34,6 +35,7 @@ class AuthService
     /**
      * @param SignupDto $dto
      * @return User
+     * @throws ReflectionException
      */
     public function signup(SignupDto $dto): User
     {
@@ -51,7 +53,6 @@ class AuthService
         if (!$user->verifyPassword($loginDto->password)) {
             throw  new DomainException('Wrong Password (');
         }
-
         $this->sessionStorage->set("user", $user);
 
         return $user;

@@ -31,8 +31,8 @@ class User
 
     /**
      * User constructor.
-     * @param $login
-     * @param $password
+     * @param string $login
+     * @param string $password
      */
     public function __construct(string $login, string $password)
     {

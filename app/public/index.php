@@ -20,6 +20,7 @@ $router = new Router();
 $container = new Container();
 
 $router->add('/signup', AuthController::class, 'signup');
+$router->add('/login', AuthController::class, 'login');
 
 // Add to container
 
@@ -69,7 +70,7 @@ $match = $router->match($_SERVER['REQUEST_URI']);
 
 $controller = $container->get($match['controller']);
 
-$response = call_user_func([$controller, $match['action']]);
+$response = $controller->{$match['action']}();
 echo $response;
 
 

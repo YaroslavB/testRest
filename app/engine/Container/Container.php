@@ -9,7 +9,7 @@ class Container
 {
     private array $definitions = [];
 
-    public function set($key, $definition)
+    public function set($key, $definition): void
     {
         $this->definitions[$key] = $definition;
     }
