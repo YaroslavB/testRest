@@ -7,6 +7,9 @@ namespace App\Repository;
 use App\Access\ObjectAccess;
 use App\Database\Connection;
 use App\Entity\User;
+use PDO;
+use ReflectionClass;
+use ReflectionException;
 
 class UserRepository
 {
@@ -25,7 +28,12 @@ class UserRepository
         $this->connection = $connection;
     }
 
-    public function add(User $user)
+    /**
+     * Add new user to database
+     * @param User $user
+     * @throws ReflectionException
+     */
+    public function add(User $user): void
     {
         $stmt = $this->connection->prepare(
             "INSERT INTO users
@@ -45,8 +53,25 @@ class UserRepository
         $reflection->setPropertyValue('id', (int)$this->connection->lastInsertId());
     }
 
-    public function findLogin(string $login): User
+    /**
+     * Find user by login
+     * @param string $login
+     * @return User|object|null
+     */
+    public function findLogin(string $login)
     {
-
+        $stmt = $this->connection->prepare("SELECT * FROM users where login =:login");
+        $stmt->execute(['login' => $login]);
+        if (!$row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            return null;
+        }
+        /** @var User $user */
+        $user = (new ReflectionClass(User::class))->newInstanceWithoutConstructor();
+        $access = new ObjectAccess($user);
+        $access->setPropertyValue('id', (int)$row['id']);
+        $access->setPropertyValue('login', (string)$row['login']);
+        $access->setPropertyValue('password', (string)$row['password']);
+        $access->setPropertyValue('status', (int)$row['status']);
+        return $user;
     }
 }

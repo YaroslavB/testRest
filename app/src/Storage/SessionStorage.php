@@ -12,6 +12,14 @@ class SessionStorage
      */
     public function __construct()
     {
+
+        /* session_set_cookie_params([
+             'lifetime' => 1800,
+             'path' => '/',
+             'secure' => true,
+             'httponly' =>true
+         ]);*/
+
         session_start();
     }
 
@@ -26,14 +34,19 @@ class SessionStorage
 
     /**
      * @param $key
-     * @param $value
+     * @param  $value
      */
-    public function set($key, $value)
+    public function set($key, $value): void
     {
         if (is_object($value)) {
             $_SESSION[$key] = serialize($value);
         }
         $_SESSION[$key] = $value;
 
+    }
+
+    public function has($key)
+    {
+        return isset($_SESSION[$key]);
     }
 }

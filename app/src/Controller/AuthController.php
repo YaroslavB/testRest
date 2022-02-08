@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Service\Auth\AuthService;
+use App\Service\Auth\LoginDto;
 use App\Service\Auth\SignupDto;
 use JsonException;
 
@@ -42,5 +43,23 @@ class AuthController
             'login' => $user->getLogin()
         ], JSON_THROW_ON_ERROR);
 
+    }
+
+
+    public function login(): string
+    {
+        $query = json_decode(file_get_contents("php://input"),
+            true,
+            512,
+            JSON_THROW_ON_ERROR);
+
+        $dto = new LoginDto();
+        $dto->login = $query['login'];
+        $dto->password = $query['password'];
+        $user = $this->authService->login($dto);
+        return json_encode([
+            'id' => $user->getId(),
+            'login' => $user->getLogin()
+        ], JSON_THROW_ON_ERROR);
     }
 }
