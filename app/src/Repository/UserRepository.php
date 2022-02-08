@@ -44,4 +44,9 @@ class UserRepository
 
         $reflection->setPropertyValue('id', (int)$this->connection->lastInsertId());
     }
+
+    public function findLogin(string $login): User
+    {
+
+    }
 }
