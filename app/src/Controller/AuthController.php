@@ -54,9 +54,12 @@ class AuthController
             JSON_THROW_ON_ERROR);
 
         $dto = new LoginDto();
+
         $dto->login = $query['login'];
         $dto->password = $query['password'];
+
         $user = $this->authService->login($dto);
+
         return json_encode([
             'id' => $user->getId(),
             'login' => $user->getLogin()

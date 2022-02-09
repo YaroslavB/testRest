@@ -57,6 +57,7 @@ class UserRepository
      * Find user by login
      * @param string $login
      * @return User|object|null
+     * @throws ReflectionException
      */
     public function findLogin(string $login)
     {

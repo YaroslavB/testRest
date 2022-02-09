@@ -25,7 +25,9 @@ class AuthService
      * @param UserRepository $users
      * @param SessionStorage $sessionStorage
      */
-    public function __construct(UserRepository $users, SessionStorage $sessionStorage)
+    public function __construct(UserRepository $users,
+                                SessionStorage $sessionStorage
+    )
     {
         $this->users = $users;
         $this->sessionStorage = $sessionStorage;
