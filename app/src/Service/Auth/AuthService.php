@@ -51,7 +51,7 @@ class AuthService
             throw new DomainException('User not found');
         }
         if (!$user->verifyPassword($loginDto->password)) {
-            throw  new DomainException('Wrong Password (');
+            throw  new DomainException('Wrong Password :(');
         }
         $this->sessionStorage->set("user", $user);
 
