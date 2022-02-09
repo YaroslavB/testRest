@@ -5,6 +5,7 @@ namespace App\Service\Files;
 
 
 use App\Entity\File;
+use DomainException;
 
 class FileService
 {
@@ -14,6 +15,9 @@ class FileService
      */
     public function upload(UploadFileInfo $info): File
     {
+        if ($info->error != UPLOAD_ERR_OK) {
+            throw new DomainException('Cannot upload file');
+        }
 
     }
 }

@@ -9,4 +9,6 @@ class UploadFileInfo
     public $tpm;
     public $mimeType;
     public $filename;
+    public $error;
+    public $size;
 }

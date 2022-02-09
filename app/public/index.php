@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 
 use App\Controller\AuthController;
+use App\Controller\FilesController;
 use App\Database\Connection;
 use App\Repository\UserRepository;
 use App\Service\Auth\AuthService;
@@ -21,6 +22,7 @@ $container = new Container();
 
 $router->add('/signup', AuthController::class, 'signup');
 $router->add('/login', AuthController::class, 'login');
+$router->add('/files/upload', FilesController::class, 'upload');
 
 // Add to container
 
@@ -64,6 +66,11 @@ $container->set(
         return new AuthController($container->get(AuthService::class));
     }
 );
+
+$container->set(FilesController::class,
+    function () {
+        return new FilesController();
+    });
 
 
 $match = $router->match($_SERVER['REQUEST_URI']);

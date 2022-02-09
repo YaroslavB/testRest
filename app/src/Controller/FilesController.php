@@ -6,5 +6,10 @@ namespace App\Controller;
 
 class FilesController
 {
+    public function upload(): string
+    {
 
+
+        return "";
+    }
 }
