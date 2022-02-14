@@ -7,6 +7,7 @@ use App\Controller\FilesController;
 use App\Database\Connection;
 use App\Repository\UserRepository;
 use App\Service\Auth\AuthService;
+use App\Service\Files\FileService;
 use App\Storage\SessionStorage;
 use Engine\Container\Container;
 use Engine\Router\Router;
@@ -23,6 +24,10 @@ $container = new Container();
 $router->add('/signup', AuthController::class, 'signup');
 $router->add('/login', AuthController::class, 'login');
 $router->add('/files/upload', FilesController::class, 'upload');
+
+$container->set('upload.dir', function () {
+    return dirname(__DIR__) . '/uploads';
+});
 
 // Add to container
 
@@ -60,6 +65,7 @@ $container->set(
         );
     }
 );
+
 $container->set(
     AuthController::class,
     function (Container $container) {
@@ -67,9 +73,14 @@ $container->set(
     }
 );
 
+$container->set(FileService::class, function (Container $container) {
+    return new FileService($container->get('upload.dir'));
+});
+
+
 $container->set(FilesController::class,
-    function () {
-        return new FilesController();
+    function (Container $container) {
+        return new FilesController($container->get(FileService::class));
     });
 
 

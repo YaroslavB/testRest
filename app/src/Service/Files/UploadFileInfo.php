@@ -6,6 +6,7 @@ namespace App\Service\Files;
 
 class UploadFileInfo
 {
+
     public $tpm;
     public $mimeType;
     public $filename;
