@@ -25,7 +25,9 @@ class AuthService
      * @param UserRepository $users
      * @param SessionStorage $sessionStorage
      */
-    public function __construct(UserRepository $users, SessionStorage $sessionStorage)
+    public function __construct(UserRepository $users,
+                                SessionStorage $sessionStorage
+    )
     {
         $this->users = $users;
         $this->sessionStorage = $sessionStorage;
@@ -51,7 +53,7 @@ class AuthService
             throw new DomainException('User not found');
         }
         if (!$user->verifyPassword($loginDto->password)) {
-            throw  new DomainException('Wrong Password (');
+            throw  new DomainException('Wrong Password :(');
         }
         $this->sessionStorage->set("user", $user);
 
