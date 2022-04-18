@@ -40,6 +40,7 @@ class SessionStorage
     {
         if (is_object($value)) {
             $_SESSION[$key] = serialize($value);
+
             return;
         }
         $_SESSION[$key] = $value;

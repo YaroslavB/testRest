@@ -25,9 +25,12 @@ $router->add('/signup', AuthController::class, 'signup');
 $router->add('/login', AuthController::class, 'login');
 $router->add('/files/upload', FilesController::class, 'upload');
 
-$container->set('upload.dir', function () {
-    return dirname(__DIR__) . '/uploads';
-});
+$container->set(
+    'upload.dir',
+    function () {
+        return dirname(__DIR__).'/uploads';
+    }
+);
 
 // Add to container
 
@@ -73,15 +76,20 @@ $container->set(
     }
 );
 
-$container->set(FileService::class, function (Container $container) {
-    return new FileService($container->get('upload.dir'));
-});
+$container->set(
+    FileService::class,
+    function (Container $container) {
+        return new FileService($container->get('upload.dir'));
+    }
+);
 
 
-$container->set(FilesController::class,
+$container->set(
+    FilesController::class,
     function (Container $container) {
         return new FilesController($container->get(FileService::class));
-    });
+    }
+);
 
 
 $match = $router->match($_SERVER['REQUEST_URI']);

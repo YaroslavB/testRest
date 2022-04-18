@@ -73,6 +73,7 @@ class UserRepository
         $access->setPropertyValue('login', (string)$row['login']);
         $access->setPropertyValue('password', (string)$row['password']);
         $access->setPropertyValue('status', (int)$row['status']);
+
         return $user;
     }
 }
