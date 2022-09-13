@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:7.4.3-fpm-alpine
 
 # 3 Install Additional dependencies
 RUN apk update && apk add --no-cache \

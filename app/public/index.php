@@ -97,7 +97,6 @@ $match = $router->match($_SERVER['REQUEST_URI']);
 $controller = $container->get($match['controller']);
 
 $response = $controller->{$match['action']}();
-
 echo $response;
 
 
